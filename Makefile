@@ -1,5 +1,5 @@
 CC := cc
-CFLAGS := -Iassets -Iinclude -lm -g
+CFLAGS := -Wall -Werror -Wextra -Iassets -Iinclude -lm -g
 LDFLAGS := ./lib/libraylib.a
 TARGET := game
 

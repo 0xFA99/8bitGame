@@ -88,14 +88,22 @@ void AddAnimationState(struct SpriteEntity *entity, enum State state, enum Direc
         return;
     }
 
-    entity->animationStates = (struct AnimationState *)realloc(
-        entity->animationStates,
-        (entity->animationStateCount + 1) * sizeof(struct AnimationState)
-    );
+    if (entity->animationStateCount == 0) {
+        entity->animationStates = (struct AnimationState *)malloc(
+            sizeof(struct AnimationState)
+        );
+    } else {
+        struct AnimationState *newStates = (struct AnimationState *)realloc(
+            entity->animationStates,
+            (entity->animationStateCount + 1) * sizeof(struct AnimationState)
+        );
 
-    if (entity->animationStates == NULL) {
-        fprintf(stderr, "[ERROR] Failed to allocate memory for animations.\n");
-        return;
+        if (newStates == NULL) {
+            fprintf(stderr, "[ERROR] Memory reallocation failed!\n");
+            return;
+        }
+
+        entity->animationStates = newStates;
     }
 
     struct AnimationState *newAnimation = &entity->animationStates[entity->animationStateCount];
