@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <limits.h>
 
 #include "sprite.h"
 
@@ -88,10 +89,9 @@ void AddAnimationState(struct SpriteEntity *entity, enum State state, enum Direc
         return;
     }
 
-    if (entity->animationStateCount == 0) {
-        entity->animationStates = (struct AnimationState *)malloc(
-            sizeof(struct AnimationState)
-        );
+    if (entity->animationStateCount <= 0) {
+        entity->animationStates = (struct AnimationState *)malloc(sizeof(struct AnimationState));
+        entity->animationStateCount = 0;
     } else {
         struct AnimationState *newStates = (struct AnimationState *)realloc(
             entity->animationStates,
@@ -117,4 +117,3 @@ void AddAnimationState(struct SpriteEntity *entity, enum State state, enum Direc
 
     entity->animationStateCount++;
 }
-

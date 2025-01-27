@@ -1,5 +1,5 @@
 CC := cc
-CFLAGS := -Wall -Werror -Wextra -Iassets -Iinclude -lm -g
+CFLAGS := -std=c99 -Wall -Werror -Wextra -fsanitize=address,undefined -Iassets -Iinclude -lm -g
 LDFLAGS := ./lib/libraylib.a
 TARGET := game
 
